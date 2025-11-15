@@ -26,33 +26,48 @@ tags: [Data Structure]     # TAG names should always be lowercase
 
 链表实现
 
-cc#c++java
+```c
+/* 链表节点结构体 */
+typedef struct ListNode {
+    int val;               // 节点值
+    struct ListNode *next; // 指向下一节点的指针
+} ListNode;
 
-    /* 链表节点结构体 */
-    typedef struct ListNode {
-        int val;               // 节点值
-        struct ListNode *next; // 指向下一节点的指针
-    } ListNode;
-
-    /* 链表节点类 */
-    class ListNode(int x) {  //构造函数
-        int val = x;         // 节点值
-        ListNode? next;      // 指向下一节点的引用
-    }
-
-    /* 链表节点结构体 */
-    struct ListNode {
-        int val;         // 节点值
-        ListNode *next;  // 指向下一节点的指针
-        ListNode(int x) : val(x), next(nullptr) {}  // 构造函数
-    };
-
-    /* 链表节点类 */
-    class ListNode {
-        int val;        // 节点值
-        ListNode next;  // 指向下一节点的引用
-        ListNode(int x) { val = x; }  // 构造函数
-    }
+/* 构造函数 */
+ListNode *newListNode(int val) {
+    ListNode *node;
+    node = (ListNode *) malloc(sizeof(ListNode));
+    node->val = val;
+    node->next = NULL;
+    return node;
+}
+```
+---
+```c#
+/* 链表节点类 */
+class ListNode(int x) {  //构造函数
+    int val = x;         // 节点值
+    ListNode? next;      // 指向下一节点的引用
+}
+```
+---
+```c++
+/* 链表节点结构体 */
+struct ListNode {
+    int val;         // 节点值
+    ListNode *next;  // 指向下一节点的指针
+    ListNode(int x) : val(x), next(nullptr) {}  // 构造函数
+};
+```
+---
+```java
+/* 链表节点类 */
+class ListNode {
+    int val;        // 节点值
+    ListNode next;  // 指向下一节点的引用
+    ListNode(int x) { val = x; }  // 构造函数
+}
+```
 
 由代码可以看出除**C语言**外其它几种语言构造函数在链表节点结构内即可完成，而**C语言**则需要单独定义构造函数
 ## 4.2.1 链表常用操作
