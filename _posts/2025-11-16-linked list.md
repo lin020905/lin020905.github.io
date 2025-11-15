@@ -335,10 +335,3 @@ int find(ListNode head, int target) {
 * **时间片轮转调度算法**：在操作系统中，时间片轮转调度算法是一种常见的 CPU 调度算法，它需要对一组进程进行循环。每个进程被赋予一个时间片，当时间片用完时，CPU 将切换到下一个进程。这种循环操作可以通过环形链表来实现。
 * **数据缓冲区**：在某些数据缓冲区的实现中，也可能会使用环形链表。比如在音频、视频播放器中，数据流可能会被分成多个缓冲块并放入一个环形链表，以便实现无缝播放。
 
-[上一页
-4.1 数组](https://www.hello-algo.com/chapter_array_and_linkedlist/array/) [下一页
-4.3 列表](https://www.hello-algo.com/chapter_array_and_linkedlist/list/)
-
-##### 欢迎在评论区留下你的见解、问题或建议
-
-[Read in Cubox](https://cubox.pro/my/card?id=7388822033808753784)
