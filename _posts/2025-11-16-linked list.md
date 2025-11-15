@@ -19,7 +19,7 @@ tags: [Data Structure]     # TAG names should always be lowercase
 链表的组成单位是<u>节点（node）</u>对象。每个节点都包含两项数据：节点的"值"和指向下一节点的"引用"。
 
 * 链表的首个节点被称为"头节点"，最后一个节点被称为"尾节点"。
-* 尾节点指向的是"空"，它在 Java、C++ 和 Python 中分别被记为 `null`、`nullptr` 和 `None` 。
+* 尾节点指向的是"空"，它在 java、C++ 和 Python 中分别被记为 `null`、`nullptr` 和 `None` 。
 * 在 C、C++、Go 和 Rust 等支持指针的语言中，上述"引用"应被替换为"指针"。
 
 如以下代码所示，链表节点 `ListNode` 除了包含值，还需额外保存一个引用（指针）。因此在相同数据量下，**链表比数组占用更多的内存空间**。
@@ -60,7 +60,7 @@ struct ListNode {
 };
 ```
 ---
-```Java
+```java
 /* 链表节点类 */
 class ListNode {
     int val;        // 节点值
@@ -109,7 +109,7 @@ void insert(ListNode *n0, ListNode *P) {
 }
 ```
 ---
-```Java
+```java
 /* 在链表的节点 n0 之后插入节点 P */
 void insert(ListNode n0, ListNode P) {
     ListNode n1 = n0.next;
@@ -168,7 +168,7 @@ void remove(ListNode *n0) {
 }
 ```
 ---
-```Java
+```java
 /* 删除链表的节点 n0 之后的首个节点 */
 void remove(ListNode n0) {
     if (n0.next == null)
@@ -219,7 +219,7 @@ ListNode *access(ListNode *head, int index) {
 }
 ```
 ---
-```Java
+```java
 /* 访问链表中索引为 index 的节点 */
 ListNode access(ListNode head, int index) {
     for (int i = 0; i < index; i++) {
@@ -277,7 +277,7 @@ int find(ListNode *head, int target) {
 }
 ```
 ---
-```Java
+```java
 /* 在链表中查找值为 target 的首个节点 */
 int find(ListNode head, int target) {
     int index = 0;
