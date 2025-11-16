@@ -29,7 +29,7 @@ P(x=k) = \frac{C^k_M C^{n-k}_{N-M}}{C^n_N}, \quad k = 1,2,\cdots,min\{M,n\}
   - $X$ 在区间 $(a,b)$ 均匀分布,$\quad X \sim U(a,b)$$$\begin{gather}f(x)=\begin{cases}\frac{1}{b-a}, & a<x<b \\ 0, & 其他 \end{cases} \\ EX = \frac{a+b}{2} \end{gather}$$
   - $X$ 服从参数为 $\mu、\sigma^2$ 的正态分布，$\quad X \sim N(\mu,\sigma^2)$ $$\begin{gather} f(x) = \frac{1}{\sqrt{2\pi\sigma}}e^{-\frac{(x-\mu)^2}{2\sigma^2}} \\ EX = \mu \end{gather}$$
   - $X$ 服从参数为 $\lambda$ 的指数分布，$\quad X \sim E(\lambda)$ $$\begin{gather}f(x)=\begin{cases}\lambda e^{-\lambda x}, & x > 0 \\ 0, & x \leq 0 \end{cases} \\ EX = \frac{1}{\lambda} \end{gather}$$
-## 4.2.2 *随机变量函数的数学期望*
+## 4.1.2 *随机变量函数的数学期望*
 ### *定理 1*
 设离散型随机变量 $X$ 的分布律为 $P(X = x_i) = p_i \ (i = 1, 2, \cdots) ， y = g(x)$ 为已知的连续函数，如果级数 $\sum_{i} g(x_i)p_i$ 绝对收敛，则
 $$EY = E[g(X)] = \sum_{i} g(x_i)p_i$$
@@ -85,11 +85,15 @@ $设 C 为常数，X，Y为随机变量$
 1. $DC = 0$
 2. $D(X + C) = DX$
 3. $D(CX) = C^2 DX$ 
-4. $D(X + Y) = DX + DY \quad 推广：设  X_1, X_2, \cdots, X_n 是相互独立的随机变量，则 D(X_1 + X_2 + \cdots + X_n) = DX_1 + DX_2 + \cdots + DX_n$
+4. $D(X + Y) = DX + DY \quad 推广：设  X_1, X_2, \cdots, X_n 是相互独立的随机变量，$
+   $则 D(X_1 + X_2 + \cdots + X_n) = DX_1 + DX_2 + \cdots + DX_n$
 5. $DX = 0  的充要条件是 X 以概率 1 取常数 EX ，即 P(X = EX) = 1$
+
 6. 重要定理
     - $X \sim B(n, p) ，则 X = X_1 + X_2 + \cdots + X_n ，其中 X_1, X_2, \cdots, X_n 相互独立且同服从参数为 p 的 0-1 分布$
-    - $X_i \sim N(\mu_i, \sigma_i^2) \ (i = 1, 2, \cdots, n) ，且它们相互独立， c_1, c_2, \cdots, c_n 是不全为零的常数，则 c_1 X_1 + c_2 X_2 + \cdots + c_n X_n \sim N(c_1 \mu_1 + c_2 \mu_2 + \cdots + c_n \mu_n, c_1^2 \sigma_1^2 + c_2^2 \sigma_2^2 + \cdots + c_n^2 \sigma_n^2)$
+
+    - $X_i \sim N(\mu_i, \sigma_i^2) \ (i = 1, 2, \cdots, n) ，且它们相互独立， c_1, c_2, \cdots, c_n 是不全为零的常数，$
+      $则 c_1 X_1 + c_2 X_2 + \cdots + c_n X_n \sim N(c_1 \mu_1 + c_2 \mu_2 + \cdots + c_n \mu_n, c_1^2 \sigma_1^2 + c_2^2 \sigma_2^2 + \cdots + c_n^2 \sigma_n^2)$
 
 # 4.3 *协方差与相关系数*
 ## 4.3.1 *协方差定义和性质*
