@@ -13,7 +13,7 @@ tags: [Data Structure]     # TAG names should always be lowercase
 
 链表的设计使得各个节点可以分散存储在内存各处，它们的内存地址无须连续。
 
-![链表图示1](../../illustration/Data-Structure/Linked-list/1.png)
+![链表图示1](/assets/img/Data%20Structure/Linked%20list/1.png)
 
 链表的组成单位是<u>节点（node）</u>对象。每个节点都包含两项数据：节点的"值"和指向下一节点的"引用"。
 
@@ -77,7 +77,7 @@ class ListNode {
 
 相比之下，在数组中插入元素的时间复杂度为 <math xmlns="http://www.w3.org/1998/Math/MathML"> O ( n ) </math> ，在大数据量下的效率较低。
 
-![链表图示2](../../illustration/Data-Structure/Linked-list/2.png)
+![链表图示2](/assets/img/Data%20Structure/Linked%20list/2.png)
 
 ```c
 /* 在链表的节点 n0 之后插入节点 P */
@@ -121,7 +121,7 @@ void insert(ListNode n0, ListNode P) {
 
 请注意，尽管在删除操作完成后节点 `P` 仍然指向 `n1` ，但实际上遍历此链表已经无法访问到 `P` ，这意味着 `P` 已经不再属于该链表了。
 
-![链表图示3](../../illustration/Data-Structure/Linked-list/3.png)
+![链表图示3](/assets/img/Data%20Structure/Linked%20list/3.png)
 
 ```c
 /* 删除链表的节点 n0 之后的首个节点 */
