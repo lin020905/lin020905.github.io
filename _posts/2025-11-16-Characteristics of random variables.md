@@ -3,6 +3,7 @@ title: Characteristics of random variables
 date: 2025-11-16
 categories: [TOP_CATEGORY, SUB_CATEGORY]
 tags: [Probability Theory]     # TAG names should always be lowercase
+math: true
 ---
 
 ### 4.1*数学期望*
