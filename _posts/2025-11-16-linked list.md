@@ -3,6 +3,7 @@ title: Linked list
 date: 2025-11-16
 categories: [TOP_CATEGORY, SUB_CATEGORY]
 tags: [Data Structure]     # TAG names should always be lowercase
+math: true
 ---
 
 # 4.2 链表
@@ -73,9 +74,9 @@ class ListNode {
 
 ### *1. 插入节点*
 
-在链表中插入节点非常容易。如图 4-6 所示，假设我们想在相邻的两个节点 `n0` 和 `n1` 之间插入一个新节点 `P` ，**则只需改变两个节点引用（指针）即可** ，时间复杂度为 <math xmlns="http://www.w3.org/1998/Math/MathML"> O ( 1 ) </math> 。
+在链表中插入节点非常容易。如图 4-6 所示，假设我们想在相邻的两个节点 `n0` 和 `n1` 之间插入一个新节点 `P` ，**则只需改变两个节点引用（指针）即可** ，时间复杂度为$O(1)$。
 
-相比之下，在数组中插入元素的时间复杂度为 <math xmlns="http://www.w3.org/1998/Math/MathML"> O ( n ) </math> ，在大数据量下的效率较低。
+相比之下，在数组中插入元素的时间复杂度为$O(n)$，在大数据量下的效率较低。
 
 ![链表图示2](/assets/img/Data%20Structure/Linked%20list/2.png)
 
