@@ -8,25 +8,21 @@ math: true
 
 # 4.1*数学期望*
 ## 4.1.1 *随机变量数学期望定义*
-1. 二项分布 $$\begin{gather}
-X \sim B(n,p) \\
-P(X = k) = C^k_n p^k q^{n-k}, \quad k = 0,1,2,\dots,n, \quad q=1-p \\
-EX = np
-\end{gather}$$
-2. 泊松分布 $$\begin{gather}
-X \sim P(\lambda)\\
-P(x=k) = \frac{\lambda^k}{k!}e^{-\lambda}\\
-EX = \lambda
-\end{gather}$$
-3. $X$ 服从参数为 $p$ 的几何分布 $$\begin{gather}
-P(x=k) = q^{k-1}p, \quad k=1,2,\cdots,0 < p <1,q = 1-p \\
-EX = \frac{1}{p} \\
-\end{gather}$$
-4. 超几何分布 $$\begin{gather}
-P(x=k) = \frac{C^k_M C^{n-k}_{N-M}}{C^n_N}, \quad k = 1,2,\cdots,min\{M,n\}
-\end{gather}$$
+1. 二项分布
+$$X \sim B(n,p)$$
+$$P(X = k) = C^k_n p^k q^{n-k}, \quad k = 0,1,2,\dots,n, \quad q=1-p$$
+$$EX = np$$
+2. 泊松分布
+$$X \sim P(\lambda)$$
+$$P(x=k) = \frac{\lambda^k}{k!}e^{-\lambda}$$
+$$EX = \lambda$$
+3. $X$ 服从参数为 $p$ 的几何分布
+$$P(x=k) = q^{k-1}p, \quad k=1,2,\cdots,0 < p <1,q = 1-p$$
+$$EX = \frac{1}{p}$$
+4. 超几何分布
+$$P(x=k) = \frac{C^k_M C^{n-k}_{N-M}}{C^n_N}, \quad k = 1,2,\cdots,min\{M,n\}$$
 5. 连续函数 $$ EX = \int_{-\infty}^{+\infty} xf(x) dx $$
-  - $X$ 在区间 $(a,b)$ 均匀分布,$\quad X \sim U(a,b)$$$\begin{gather}f(x)=\begin{cases}\frac{1}{b-a}, & a<x<b \\ 0, & 其他 \end{cases} \\ EX = \frac{a+b}{2} \end{gather}$$
+  - $X$ 在区间 $(a,b)$ 均匀分布,$\quad X \sim U(a,b)$ $$\begin{gather}f(x)=\begin{cases}\frac{1}{b-a}, & a<x<b \\ 0, & 其他 \end{cases} \\ EX = \frac{a+b}{2} \end{gather}$$
   - $X$ 服从参数为 $\mu、\sigma^2$ 的正态分布，$\quad X \sim N(\mu,\sigma^2)$ $$\begin{gather} f(x) = \frac{1}{\sqrt{2\pi\sigma}}e^{-\frac{(x-\mu)^2}{2\sigma^2}} \\ EX = \mu \end{gather}$$
   - $X$ 服从参数为 $\lambda$ 的指数分布，$\quad X \sim E(\lambda)$ $$\begin{gather}f(x)=\begin{cases}\lambda e^{-\lambda x}, & x > 0 \\ 0, & x \leq 0 \end{cases} \\ EX = \frac{1}{\lambda} \end{gather}$$
 ## 4.1.2 *随机变量函数的数学期望*
@@ -122,9 +118,9 @@ $为  X  与  Y  的相关系数。$
 1. $设二维连续型随机变量  (X,Y) \sim N(\mu_1, \mu_2; \sigma_1^2, \sigma_2^2; \rho) ，则$ $\rho_{XY} = \rho$
 2. $(Cauchy-Schwarz 不等式)设  X, Y  是随机变量，且  EX^2 < +\infty ， EY^2 < +\infty ，则$ $[E(XY)]^2 \leq EX^2 EY^2$
     性质：
-     - $|\rho_{XY}| \leq 1$
+     - $\lvert \rho_{XY} \rvert \leq 1$
      - $设随机变量  X, Y  相互独立且方差均大于零，则  \rho_{XY} = 0$
-     - $|\rho_{XY}| = 1  的充要条件是存在常数  a (a \neq 0)  与  b ，使得  P(Y = aX + b) = 1$
+     - $\lvert \rho_{XY} \rvert = 1  的充要条件是存在常数  a (a \neq 0)  与  b ，使得  P(Y = aX + b) = 1$
 
 ## 4.3.3 *不相关及条件*
 相关系数 $\rho_{XY}$ 是用来刻画随机变量 $X, Y$ 之间线性关系强弱的数字特征。
@@ -167,7 +163,7 @@ $设  \mathbf{X} = (X_1, X_2, \cdots, X_n)  为 n 维随机变量。$
 ### *定义3*
 $设  \mathbf{X} = (X_1, X_2, \cdots, X_n)  的均值向量为  \mathbf{\mu} ，协方差矩阵为  \mathbf{B} ，若其联合概率密度为：$
 
-$f(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{n}{2}} |\mathbf{B}|^{\frac{1}{2}}} e^{-\frac{1}{2}(\mathbf{x} - \mathbf{\mu})\mathbf{B}^{-1}(\mathbf{x} - \mathbf{\mu})^T}, \quad x_i \in R$
+$f(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{n}{2}} \lvert \mathbf{B} \rvert ^{\frac{1}{2}}} e^{-\frac{1}{2}(\mathbf{x} - \mathbf{\mu})\mathbf{B}^{-1}(\mathbf{x} - \mathbf{\mu})^T}, \quad x_i \in R$
 
 $则称  \mathbf{X}  服从 n 维正态分布，记为  \mathbf{X} \sim N(\mathbf{\mu}, \mathbf{B}) 。$
 
