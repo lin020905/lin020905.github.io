@@ -1,0 +1,17 @@
+.reveal-up {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card,
+.gallery-item,
+.btn,
+.lang-switch {
+  will-change: transform;
+}
