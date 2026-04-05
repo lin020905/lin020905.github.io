@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio Showcase</title>
-  <meta name="description" content="Personal project showcase website" />
+  <title>LIN020905 PROJECT ARCHIVE</title>
+  <meta name="description" content="Cinematic personal showcase" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -14,8 +14,9 @@
 <body>
   <div id="loading-screen" aria-live="polite">
     <div class="loading-inner">
-      <h1 class="loading-title">PROJECT REVEAL</h1>
-      <p class="loading-subtitle" data-i18n="loading.subtitle">Loading cinematic interface...</p>
+      <p class="loading-kicker">LOADING SYSTEM</p>
+      <h1 class="loading-title">PROJECT ARCHIVE</h1>
+      <p class="loading-subtitle" data-i18n="loading.subtitle">Synchronizing showcase data...</p>
       <div class="loading-bar-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
         <div class="loading-bar" id="loading-bar"></div>
       </div>
@@ -28,10 +29,10 @@
       <a href="#top" class="brand">LIN020905</a>
       <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">☰</button>
       <ul class="nav-links" id="nav-links">
-        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#intro" data-i18n="nav.intro">Intro</a></li>
+        <li><a href="#story" data-i18n="nav.story">Story</a></li>
         <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
-        <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
-        <li><a href="#gallery" data-i18n="nav.gallery">Gallery</a></li>
+        <li><a href="#news" data-i18n="nav.news">News</a></li>
         <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
       </ul>
       <button class="lang-switch" id="lang-switch">EN / 中文</button>
@@ -42,56 +43,58 @@
     <section class="hero">
       <div class="hero-overlay"></div>
       <div class="hero-content container reveal-up">
-        <p class="eyebrow">PERSONAL PORTFOLIO</p>
-        <h1 data-i18n="hero.title">Your Next Big Project</h1>
-        <p class="hero-text" data-i18n="hero.desc">Replace this section with your own main visual and project statement.</p>
-        <a href="#projects" class="btn" data-i18n="hero.cta">Explore Works</a>
+        <p class="eyebrow">PERSONAL SHOWCASE</p>
+        <h1 data-i18n="hero.title">Cinematic Project Landing</h1>
+        <p class="hero-text" data-i18n="hero.desc">Use this key visual area for your project title video/image and opening statement.</p>
+        <a href="#story" class="btn" data-i18n="hero.cta">Enter Archive</a>
       </div>
-      <div class="scroll-hint">⌄</div>
+      <div class="scroll-hint">SCROLL</div>
     </section>
 
-    <section id="about" class="section container reveal-up">
-      <h2 data-i18n="about.title">About Me</h2>
-      <p data-i18n="about.desc">This area is reserved for your self-introduction, mission, and project background.</p>
+    <section id="intro" class="section container reveal-up">
+      <p class="section-label">INTRODUCTION</p>
+      <h2 data-i18n="intro.title">Project Introduction</h2>
+      <p data-i18n="intro.desc">Replace this paragraph with your personal positioning, project mission, and core value statement.</p>
+    </section>
+
+    <section id="story" class="section split-section container reveal-up">
+      <div class="split-media">KEY VISUAL</div>
+      <div class="split-content">
+        <p class="section-label">STORY</p>
+        <h2 data-i18n="story.title">Background & Vision</h2>
+        <p data-i18n="story.desc">This section is designed to mimic official anime promo-page storytelling blocks. Put your long-form narrative here.</p>
+      </div>
     </section>
 
     <section id="projects" class="section container reveal-up">
-      <h2 data-i18n="projects.title">Projects</h2>
+      <p class="section-label">PROJECTS</p>
+      <h2 data-i18n="projects.title">Main Works</h2>
       <div class="card-grid">
-        <article class="card"><h3 data-i18n="projects.items.p1.title">Project 01</h3><p data-i18n="projects.items.p1.desc">Placeholder content for your project summary.</p></article>
-        <article class="card"><h3 data-i18n="projects.items.p2.title">Project 02</h3><p data-i18n="projects.items.p2.desc">Placeholder content for your project summary.</p></article>
-        <article class="card"><h3 data-i18n="projects.items.p3.title">Project 03</h3><p data-i18n="projects.items.p3.desc">Placeholder content for your project summary.</p></article>
-        <article class="card"><h3 data-i18n="projects.items.p4.title">Project 04</h3><p data-i18n="projects.items.p4.desc">Placeholder content for your project summary.</p></article>
-        <article class="card"><h3 data-i18n="projects.items.p5.title">Project 05</h3><p data-i18n="projects.items.p5.desc">Placeholder content for your project summary.</p></article>
-        <article class="card"><h3 data-i18n="projects.items.p6.title">Project 06</h3><p data-i18n="projects.items.p6.desc">Placeholder content for your project summary.</p></article>
+        <article class="card"><span class="card-no">01</span><h3 data-i18n="projects.items.p1.title">Project Name</h3><p data-i18n="projects.items.p1.desc">Project summary placeholder. Replace with your own content.</p></article>
+        <article class="card"><span class="card-no">02</span><h3 data-i18n="projects.items.p2.title">Project Name</h3><p data-i18n="projects.items.p2.desc">Project summary placeholder. Replace with your own content.</p></article>
+        <article class="card"><span class="card-no">03</span><h3 data-i18n="projects.items.p3.title">Project Name</h3><p data-i18n="projects.items.p3.desc">Project summary placeholder. Replace with your own content.</p></article>
+        <article class="card"><span class="card-no">04</span><h3 data-i18n="projects.items.p4.title">Project Name</h3><p data-i18n="projects.items.p4.desc">Project summary placeholder. Replace with your own content.</p></article>
       </div>
     </section>
 
-    <section id="skills" class="section container reveal-up">
-      <h2 data-i18n="skills.title">Skills & Stack</h2>
-      <div class="tags">
-        <span>HTML</span><span>CSS</span><span>JavaScript</span><span>TypeScript</span><span>React</span><span>Node.js</span>
-      </div>
-      <p data-i18n="skills.desc">Swap these tags with your real stack and proficiency details.</p>
-    </section>
-
-    <section id="gallery" class="section container reveal-up">
-      <h2 data-i18n="gallery.title">Gallery</h2>
-      <div class="gallery-grid">
-        <div class="gallery-item" data-i18n="gallery.g1">Visual Placeholder 01</div>
-        <div class="gallery-item" data-i18n="gallery.g2">Visual Placeholder 02</div>
-        <div class="gallery-item" data-i18n="gallery.g3">Visual Placeholder 03</div>
-        <div class="gallery-item" data-i18n="gallery.g4">Visual Placeholder 04</div>
-      </div>
+    <section id="news" class="section container reveal-up">
+      <p class="section-label">UPDATE LOG</p>
+      <h2 data-i18n="news.title">News / Timeline</h2>
+      <ul class="news-list">
+        <li><time>2026.04.05</time><span data-i18n="news.n1">Website framework released.</span></li>
+        <li><time>YYYY.MM.DD</time><span data-i18n="news.n2">Add your project milestone here.</span></li>
+        <li><time>YYYY.MM.DD</time><span data-i18n="news.n3">Add your project milestone here.</span></li>
+      </ul>
     </section>
 
     <section id="contact" class="section container reveal-up">
-      <h2 data-i18n="contact.title">Contact</h2>
-      <p data-i18n="contact.desc">Put your email, GitHub links, and social accounts here.</p>
+      <p class="section-label">CONTACT</p>
+      <h2 data-i18n="contact.title">Join / Contact</h2>
+      <p data-i18n="contact.desc">Add your e-mail, GitHub, and social accounts here.</p>
       <div class="contact-links">
         <a href="https://github.com/lin020905" target="_blank" rel="noreferrer">GitHub</a>
         <a href="#" aria-disabled="true">Email</a>
-        <a href="#" aria-disabled="true">LinkedIn</a>
+        <a href="#" aria-disabled="true">Bilibili / X</a>
       </div>
     </section>
   </main>
