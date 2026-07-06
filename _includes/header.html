@@ -1,26 +1,28 @@
 <header class="site-header" id="top">
-  <div class="site-heading">
+  <div class="site-topline">
     <a class="site-title" href="{{ '/' | relative_url }}" aria-label="lin home">
       {{ site.title }}
     </a>
-    <p class="site-description">
-      <span data-i18n="siteDescription">项目 / 随笔 / 折腾记录</span>
-    </p>
+
+    <div class="site-tools">
+      <div class="quote-frame" data-quote-frame>
+        <p class="header-quote" data-quote-rotator aria-live="polite">爱能穿越时间和空间</p>
+      </div>
+      <div class="language-switch" aria-label="Language switch">
+        <button type="button" data-language="zh" aria-pressed="true">ZH</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-language="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
   </div>
 
   <nav class="site-nav" aria-label="Primary navigation">
-    <a href="{{ '/#about' | relative_url }}" data-i18n="navAbout">简介</a>
+    <a href="{{ '/#about' | relative_url }}" data-section-link="about" data-i18n="navAbout">简介</a>
     <span aria-hidden="true">/</span>
-    <a href="{{ '/#projects' | relative_url }}" data-i18n="navProjects">项目</a>
+    <a href="{{ '/#projects' | relative_url }}" data-section-link="projects" data-i18n="navProjects">项目</a>
     <span aria-hidden="true">/</span>
-    <a href="{{ '/#notes' | relative_url }}" data-i18n="navNotes">随笔</a>
+    <a href="{{ '/#notes' | relative_url }}" data-section-link="notes" data-i18n="navNotes">随笔</a>
     <span aria-hidden="true">/</span>
     <a href="{{ '/#contact' | relative_url }}" data-i18n="navContact">联系</a>
   </nav>
-
-  <div class="language-switch" aria-label="Language switch">
-    <button type="button" data-language="zh" aria-pressed="true">ZH</button>
-    <span aria-hidden="true">/</span>
-    <button type="button" data-language="en" aria-pressed="false">EN</button>
-  </div>
 </header>

@@ -1,14 +1,11 @@
 const translations = {
   zh: {
     skipLink: "跳转到主要内容",
-    siteDescription: "项目 / 随笔 / 折腾记录",
     navAbout: "简介",
     navProjects: "项目",
     navNotes: "随笔",
     navContact: "联系",
-    homeKicker: "Projects / Notes / Tinkering",
-    funQuote: "我问你：今天有什么值得折腾？",
-    homeIntro:
+    aboutLead:
       "一个用来收纳个人项目、创作实验和短随笔的轻量索引。先保持简单，再让内容慢慢长出来。",
     aboutLabel: "About",
     aboutTitle: "关于这个空间",
@@ -27,14 +24,11 @@ const translations = {
   },
   en: {
     skipLink: "Skip to main content",
-    siteDescription: "Projects / Notes / Tinkering",
     navAbout: "About",
     navProjects: "Projects",
     navNotes: "Notes",
     navContact: "Contact",
-    homeKicker: "Projects / Notes / Tinkering",
-    funQuote: "Question: what is worth tinkering with today?",
-    homeIntro:
+    aboutLead:
       "A lightweight index for personal projects, creative experiments, and short notes. Keep it simple first, then let the work grow.",
     aboutLabel: "About",
     aboutTitle: "About This Space",
@@ -53,10 +47,25 @@ const translations = {
   },
 };
 
+const quotes = {
+  zh: ["爱能穿越时间和空间", "过去无可挽回，未来可以改变。"],
+  en: [
+    "Love can transcend time and space.",
+    "The past cannot be undone, but the future can be changed.",
+  ],
+};
+
 const storageKey = "lin020905-site-language";
 const languageButtons = document.querySelectorAll("[data-language]");
 const translatableNodes = document.querySelectorAll("[data-i18n]");
+const quoteNode = document.querySelector("[data-quote-rotator]");
+const quoteFrame = document.querySelector("[data-quote-frame]");
+const sectionNodes = document.querySelectorAll("[data-section]");
+const sectionLinks = document.querySelectorAll("[data-section-link]");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+let currentLanguage = "zh";
+let currentQuoteIndex = 0;
+let quoteAnimationTimer;
 
 function readSavedLanguage() {
   try {
@@ -93,8 +102,38 @@ function animateLanguageChange() {
   }, 260);
 }
 
+function updateQuote({ animate = false } = {}) {
+  if (!quoteNode) {
+    return;
+  }
+
+  const quoteList = quotes[currentLanguage] || quotes.zh;
+  const nextQuote = quoteList[currentQuoteIndex % quoteList.length];
+
+  if (!animate || prefersReducedMotion.matches || !quoteFrame) {
+    quoteNode.textContent = nextQuote;
+    return;
+  }
+
+  window.clearTimeout(quoteAnimationTimer);
+  quoteFrame.classList.remove("is-quote-entering", "is-quote-leaving", "is-quote-underlined");
+  void quoteFrame.offsetWidth;
+  quoteFrame.classList.add("is-quote-leaving", "is-quote-underlined");
+
+  quoteAnimationTimer = window.setTimeout(() => {
+    quoteNode.textContent = nextQuote;
+    quoteFrame.classList.remove("is-quote-leaving");
+    quoteFrame.classList.add("is-quote-entering");
+
+    quoteAnimationTimer = window.setTimeout(() => {
+      quoteFrame.classList.remove("is-quote-entering", "is-quote-underlined");
+    }, 420);
+  }, 220);
+}
+
 function setLanguage(language) {
   const dictionary = translations[language] || translations.zh;
+  currentLanguage = language === "en" || language === "zh" ? language : "zh";
 
   translatableNodes.forEach((node) => {
     const key = node.dataset.i18n;
@@ -108,9 +147,10 @@ function setLanguage(language) {
     button.setAttribute("aria-pressed", String(isActive));
   });
 
-  document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
-  document.documentElement.dataset.language = language;
-  saveLanguage(language);
+  document.documentElement.lang = currentLanguage === "zh" ? "zh-CN" : "en";
+  document.documentElement.dataset.language = currentLanguage;
+  updateQuote();
+  saveLanguage(currentLanguage);
   animateLanguageChange();
 }
 
@@ -122,6 +162,75 @@ function setupLanguageSwitch() {
   });
 
   setLanguage(getInitialLanguage());
+}
+
+function setupQuoteRotator() {
+  if (!quoteNode) {
+    return;
+  }
+
+  updateQuote();
+
+  window.setInterval(() => {
+    currentQuoteIndex += 1;
+    updateQuote({ animate: true });
+  }, 15000);
+}
+
+function setActiveSection(sectionId) {
+  sectionNodes.forEach((section) => {
+    section.classList.toggle("is-section-active", section.id === sectionId);
+  });
+
+  sectionLinks.forEach((link) => {
+    const isActive = link.dataset.sectionLink === sectionId;
+
+    if (isActive) {
+      link.setAttribute("aria-current", "location");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
+}
+
+function setupSectionSwitching() {
+  if (!sectionNodes.length) {
+    return;
+  }
+
+  document.documentElement.classList.add("section-switch-ready");
+  setActiveSection(sectionNodes[0].id);
+
+  if (!("IntersectionObserver" in window) || prefersReducedMotion.matches) {
+    sectionNodes.forEach((section) => section.classList.add("is-section-active"));
+    return;
+  }
+
+  const sectionRatios = new Map(
+    Array.from(sectionNodes, (section) => [section.id, section === sectionNodes[0] ? 1 : 0]),
+  );
+
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        sectionRatios.set(entry.target.id, entry.intersectionRatio);
+      });
+
+      const activeSection = Array.from(sectionNodes).sort(
+        (first, second) => sectionRatios.get(second.id) - sectionRatios.get(first.id),
+      )[0];
+
+      if (activeSection && sectionRatios.get(activeSection.id) > 0) {
+        setActiveSection(activeSection.id);
+      }
+    },
+    {
+      rootMargin: "-28% 0px -42% 0px",
+      threshold: [0, 0.15, 0.35, 0.6, 0.85],
+    },
+  );
+
+  sectionNodes.forEach((section) => sectionObserver.observe(section));
 }
 
 function setupReveal() {
@@ -157,4 +266,6 @@ function setupReveal() {
 }
 
 setupLanguageSwitch();
+setupQuoteRotator();
+setupSectionSwitching();
 setupReveal();

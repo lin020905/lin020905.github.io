@@ -88,20 +88,20 @@ a:focus-visible {
 }
 
 .site-header {
-  padding: 64px 0 44px;
+  padding: 56px 0 40px;
   border-top: 5px solid var(--ink);
   border-bottom: 1px solid var(--muted-light);
-  text-align: center;
 }
 
-.site-heading {
+.site-topline {
   display: grid;
-  gap: 4px;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
 }
 
 .site-title {
   display: inline-block;
-  justify-self: center;
   color: var(--ink);
   font-size: 4rem;
   font-weight: 400;
@@ -113,9 +113,55 @@ a:focus-visible {
   border-bottom: 0;
 }
 
-.site-description {
-  color: var(--muted);
-  font-size: 0.9rem;
+.site-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-items: baseline;
+  justify-content: flex-end;
+  min-width: 0;
+  padding-top: 9px;
+}
+
+.quote-frame {
+  position: relative;
+  display: inline-block;
+  min-width: min(430px, 100%);
+  padding-bottom: 7px;
+  overflow: hidden;
+}
+
+.quote-frame::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  opacity: 0;
+  transform: translateX(-105%);
+}
+
+.header-quote {
+  max-width: 430px;
+  color: var(--ink);
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.45;
+  text-align: right;
+}
+
+.quote-frame.is-quote-underlined::after {
+  animation: quote-line-flight 640ms cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+.quote-frame.is-quote-leaving .header-quote {
+  animation: quote-fly-out 220ms ease forwards;
+}
+
+.quote-frame.is-quote-entering .header-quote {
+  animation: quote-fly-in 420ms ease both;
 }
 
 .site-nav {
@@ -123,8 +169,8 @@ a:focus-visible {
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
-  justify-content: center;
-  margin-top: 46px;
+  justify-content: flex-start;
+  margin-top: 40px;
   color: var(--link);
   font-size: 0.88rem;
   font-weight: 400;
@@ -143,15 +189,20 @@ a:focus-visible {
   color: var(--link-hover);
 }
 
+.site-nav a[aria-current="location"] {
+  color: var(--ink);
+  border-bottom: 1px solid currentColor;
+}
+
 .language-switch {
   display: inline-flex;
   gap: 8px;
   align-items: center;
   justify-content: center;
-  margin-top: 24px;
   color: var(--link);
   font-size: 0.82rem;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .language-switch button {
@@ -172,12 +223,6 @@ a:focus-visible {
   padding: 0;
 }
 
-.home-hero {
-  padding: 74px 0 62px;
-  text-align: center;
-}
-
-.home-kicker,
 .section-label,
 .detail-kicker,
 .entry-meta,
@@ -187,33 +232,13 @@ a:focus-visible {
   text-transform: uppercase;
 }
 
-.fun-quote {
-  display: inline-block;
-  max-width: 620px;
-  margin-top: 28px;
-  color: var(--link-hover);
-  font-size: 1.45rem;
-  font-style: italic;
-}
-
-.home-hero h1 {
-  margin-top: 34px;
-  font-size: 4.6rem;
-  font-weight: 900;
-  line-height: 1;
-  text-transform: lowercase;
-}
-
-.home-intro {
-  max-width: 600px;
-  margin: 24px auto 0;
-  color: var(--muted);
-  font-size: 1.12rem;
-}
-
 .home-section {
   padding: 58px 0;
   border-top: 1px solid var(--muted-light);
+}
+
+.page-content > .home-section:first-child {
+  border-top: 0;
 }
 
 .section-heading {
@@ -230,9 +255,16 @@ a:focus-visible {
   text-transform: uppercase;
 }
 
-.home-section > p:not(.section-label) {
+.section-copy {
+  display: grid;
+  gap: 16px;
   max-width: 680px;
   margin: 20px auto 0;
+}
+
+.section-copy p {
+  max-width: 680px;
+  margin: 0 auto;
   color: var(--muted);
   font-size: 1.08rem;
   text-align: center;
@@ -397,7 +429,42 @@ a:focus-visible {
   transform: translateY(0);
 }
 
+.section-switch-ready .home-section[data-section] > .section-label,
+.section-switch-ready .home-section[data-section] > h2,
+.section-switch-ready .home-section[data-section] > .section-copy,
+.section-switch-ready .home-section[data-section] > .section-heading,
+.section-switch-ready .home-section[data-section] > .entry-list {
+  opacity: 0.5;
+  transform: translateY(12px);
+  transition:
+    opacity 520ms ease,
+    transform 520ms ease;
+}
+
+.section-switch-ready .home-section[data-section].is-section-active > .section-label,
+.section-switch-ready .home-section[data-section].is-section-active > h2,
+.section-switch-ready .home-section[data-section].is-section-active > .section-copy,
+.section-switch-ready .home-section[data-section].is-section-active > .section-heading,
+.section-switch-ready .home-section[data-section].is-section-active > .entry-list {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-switch-ready .home-section[data-section] > .entry-list .entry-item {
+  opacity: 0.42;
+  transform: translateY(16px);
+  transition:
+    opacity 520ms ease,
+    transform 520ms ease;
+}
+
+.section-switch-ready .home-section[data-section].is-section-active > .entry-list .entry-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 body.is-language-changing [data-i18n],
+body.is-language-changing [data-quote-rotator],
 body.is-language-changing .lang-zh,
 body.is-language-changing .lang-en {
   animation: language-swap 220ms ease;
@@ -414,6 +481,43 @@ body.is-language-changing .lang-en {
   }
 }
 
+@keyframes quote-line-flight {
+  0% {
+    opacity: 0;
+    transform: translateX(-105%);
+  }
+  18%,
+  78% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(105%);
+  }
+}
+
+@keyframes quote-fly-out {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(22px, -12px);
+  }
+}
+
+@keyframes quote-fly-in {
+  0% {
+    opacity: 0;
+    transform: translate(-16px, 8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
 @media (max-width: 680px) {
   .site-shell {
     width: min(100% - 28px, var(--content-width));
@@ -423,24 +527,33 @@ body.is-language-changing .lang-en {
     padding: 44px 0 34px;
   }
 
+  .site-topline {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
   .site-title {
     font-size: 3rem;
   }
 
+  .site-tools {
+    justify-content: space-between;
+    padding-top: 0;
+  }
+
+  .quote-frame {
+    min-width: 0;
+    max-width: min(100%, 360px);
+  }
+
+  .header-quote {
+    max-width: min(100%, 360px);
+    text-align: left;
+  }
+
   .site-nav {
-    margin-top: 34px;
-  }
-
-  .home-hero {
-    padding: 54px 0 48px;
-  }
-
-  .fun-quote {
-    font-size: 1.18rem;
-  }
-
-  .home-hero h1 {
-    font-size: 3.4rem;
+    justify-content: flex-start;
+    margin-top: 30px;
   }
 
   .home-section {
