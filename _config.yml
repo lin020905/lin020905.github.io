@@ -27,6 +27,7 @@ defaults:
       layout: note
 
 markdown: kramdown
+future: true
 kramdown:
   input: GFM
 
