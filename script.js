@@ -19,7 +19,7 @@ const translations = {
     openProject: "打开项目",
     contactLabel: "Contact",
     contactText: "欢迎交流项目、想法，或者只是打个招呼。",
-    footerText: "© 2026 lin. Built with Jekyll.",
+    footerText: "© 2026 dreamworld. Built with Jekyll.",
     backTop: "返回顶部",
   },
   en: {
@@ -42,7 +42,7 @@ const translations = {
     openProject: "Open Project",
     contactLabel: "Contact",
     contactText: "Open to project notes, ideas, or a simple hello.",
-    footerText: "© 2026 lin. Built with Jekyll.",
+    footerText: "© 2026 dreamworld. Built with Jekyll.",
     backTop: "Back To Top",
   },
 };

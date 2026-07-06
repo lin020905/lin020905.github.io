@@ -13,5 +13,6 @@
   <title>
     {% if page.url == "/" %}{{ site.title }} | Projects & Notes{% else %}{{ page.title | default: site.title }} | {{ site.title }}{% endif %}
   </title>
+  <link rel="icon" type="image/svg+xml" href="{{ '/favicon.svg' | relative_url }}?v={{ build_version }}" />
   <link rel="stylesheet" href="{{ '/styles.css' | relative_url }}?v={{ build_version }}" />
 </head>
