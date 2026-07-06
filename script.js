@@ -56,6 +56,9 @@ const quotes = {
 };
 
 const storageKey = "lin020905-site-language";
+const buildRefreshKey = "lin020905-build-refresh";
+const legacyCacheCleanKey = "lin020905-legacy-cache-cleaned";
+const currentBuildVersion = document.documentElement.dataset.buildVersion || "";
 const languageButtons = document.querySelectorAll("[data-language]");
 const translatableNodes = document.querySelectorAll("[data-i18n]");
 const quoteNode = document.querySelector("[data-quote-rotator]");
@@ -66,6 +69,8 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 let currentLanguage = "zh";
 let currentQuoteIndex = 0;
 let quoteAnimationTimer;
+let buildRefreshAttempted = false;
+let legacyCacheReloadAttempted = false;
 
 function readSavedLanguage() {
   try {
@@ -265,6 +270,113 @@ function setupReveal() {
   revealNodes.forEach((node) => revealObserver.observe(node));
 }
 
+function setupFreshBuildCheck() {
+  if (!currentBuildVersion || !("fetch" in window)) {
+    return;
+  }
+
+  const versionUrl = new URL("/site-version.json", window.location.origin);
+  versionUrl.searchParams.set("t", String(Date.now()));
+
+  fetch(versionUrl, { cache: "no-store" })
+    .then((response) => (response.ok ? response.json() : null))
+    .then((siteVersion) => {
+      const latestVersion = siteVersion && siteVersion.version;
+
+      if (!latestVersion || latestVersion === currentBuildVersion) {
+        return;
+      }
+
+      const refreshToken = `${currentBuildVersion}:${latestVersion}`;
+
+      if (buildRefreshAttempted) {
+        return;
+      }
+
+      try {
+        if (sessionStorage.getItem(buildRefreshKey) === refreshToken) {
+          return;
+        }
+
+        sessionStorage.setItem(buildRefreshKey, refreshToken);
+      } catch {
+        // Continue with the in-memory guard if sessionStorage is unavailable.
+      }
+
+      buildRefreshAttempted = true;
+      const freshUrl = new URL(window.location.href);
+      freshUrl.searchParams.set("build", latestVersion);
+      window.location.replace(freshUrl.toString());
+    })
+    .catch(() => {
+      return;
+    });
+}
+
+function clearLegacyServiceWorkerCache() {
+  if (!("serviceWorker" in navigator)) {
+    return;
+  }
+
+  navigator.serviceWorker
+    .getRegistrations()
+    .then((registrations) => {
+      const rootScope = `${window.location.origin}/`;
+      const rootRegistrations = registrations.filter((registration) => registration.scope === rootScope);
+
+      if (!rootRegistrations.length && !navigator.serviceWorker.controller) {
+        return false;
+      }
+
+      return Promise.all(rootRegistrations.map((registration) => registration.unregister())).then(() => true);
+    })
+    .then((hadLegacyServiceWorker) => {
+      if (!hadLegacyServiceWorker) {
+        return;
+      }
+
+      const clearCaches =
+        "caches" in window
+          ? caches
+              .keys()
+              .then((cacheNames) => Promise.all(cacheNames.map((cacheName) => caches.delete(cacheName))))
+          : Promise.resolve();
+
+      clearCaches
+        .then(() => {
+          if (legacyCacheReloadAttempted) {
+            return;
+          }
+
+          legacyCacheReloadAttempted = true;
+
+          try {
+            if (sessionStorage.getItem(legacyCacheCleanKey) === currentBuildVersion) {
+              return;
+            }
+
+            sessionStorage.setItem(legacyCacheCleanKey, currentBuildVersion);
+          } catch {
+            // Continue with the in-memory guard if sessionStorage is unavailable.
+          }
+
+          if (navigator.serviceWorker.controller) {
+            window.location.reload();
+          }
+        })
+        .catch(() => {
+          return;
+        });
+    })
+    .catch(() => {
+      return;
+    });
+}
+
+window.addEventListener("pageshow", setupFreshBuildCheck);
+window.addEventListener("focus", setupFreshBuildCheck);
+
+clearLegacyServiceWorkerCache();
 setupLanguageSwitch();
 setupQuoteRotator();
 setupSectionSwitching();

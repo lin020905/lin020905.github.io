@@ -5,7 +5,6 @@ description_en: "lin's index for personal projects, creative experiments, and no
 url: "https://lin020905.github.io"
 baseurl: ""
 github_username: lin020905
-asset_version: "20260707-0215"
 
 collections:
   projects:

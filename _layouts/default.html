@@ -1,5 +1,6 @@
+{%- assign build_version = site.time | date: "%Y%m%d%H%M%S" -%}
 <!doctype html>
-<html lang="zh-CN" data-language="zh">
+<html lang="zh-CN" data-language="zh" data-build-version="{{ build_version }}">
   {% include head.html %}
   <body>
     <a class="skip-link" href="#main" data-i18n="skipLink">跳转到主要内容</a>
@@ -10,6 +11,6 @@
       </main>
       {% include footer.html %}
     </div>
-    <script src="{{ '/script.js' | relative_url }}?v={{ site.asset_version }}"></script>
+    <script src="{{ '/script.js' | relative_url }}?v={{ build_version }}"></script>
   </body>
 </html>

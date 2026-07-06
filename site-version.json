@@ -1,0 +1,8 @@
+---
+layout: null
+permalink: /site-version.json
+---
+{
+  "version": "{{ site.time | date: "%Y%m%d%H%M%S" }}",
+  "builtAt": "{{ site.time | date_to_xmlschema }}"
+}
