@@ -1,11 +1,13 @@
 ---
 title: 音乐条的趣事
-title_en: 
+title_en: A Music Bar Anecdote
 date: 2026-07-07
 tag: share
 summary: Kanye West的故事
-summary_en: 
+summary_en: A story about Kanye West.
 ---
+
+<div class="lang-zh" markdown="1">
 
 网上流传**侃爷母亲Donda West昔日中国学生的回忆**。
 
@@ -26,3 +28,29 @@ summary_en:
 > 他就开始跳了。
 >
 > 因为三十多年前，在南京街头，他就是这么干的。
+
+</div>
+
+<div class="lang-en" markdown="1">
+
+There is an anecdote circulating online that is said to come from **a former Chinese student of Kanye West's mother, Donda West**.
+
+According to this person, who claims to have studied at Nanjing University, Donda came to teach there for a year in 1987. Kanye West, now known as Ye, was 10 years old at the time and came to China with his mother.
+
+The story mentions a few details:
+
+* Donda was an engaging teacher. She did not simply read from the textbook, and she often encouraged students to express their own ideas instead of memorizing answers mechanically.
+* She often brought her son Kanye to campus, so quite a few students saw this young American boy.
+* Kanye could not speak much Chinese, but he liked playing with children his age and quickly learned how to ride a bicycle.
+* One student recalled that breakdancing was popular on the street at the time. Kanye would dance by the roadside, and more and more people would gather to watch. Sometimes people even gave him lamb skewers as a reward. This is the origin of the widely circulated anecdote that "Kanye traded breakdancing for lamb skewers in Nanjing."
+* The student described Donda as "a teacher who could truly inspire students. She not only raised a star, but also influenced many people around her." Still, this account mainly comes from reposts and social media circulation rather than a formal interview, so it should be treated as a personal memory rather than independently verified historical material.
+
+That is also why many people later joked:
+
+> Someone told Kanye, "Do some breakdancing."
+>
+> So he started dancing.
+>
+> Because more than thirty years ago, on the streets of Nanjing, that was exactly what he did.
+
+</div>
