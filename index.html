@@ -5,20 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="A minimal bilingual portfolio framework for lin020905."
+      content="lin 的个人项目展示、创作实验和趣味分享。"
     />
-    <title>lin020905 | Portfolio</title>
+    <title>lin | Projects & Notes</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#main" data-i18n="skipLink">跳转到主要内容</a>
 
     <header class="site-header" id="top">
-      <a class="brand" href="#top" aria-label="lin020905 home">lin020905</a>
+      <a class="brand" href="#top" aria-label="lin home">
+        <span>lin</span>
+        <span class="brand-code">020905</span>
+      </a>
 
       <nav class="site-nav" aria-label="Primary navigation">
         <a href="#about" data-i18n="navAbout">简介</a>
-        <a href="#work" data-i18n="navWork">作品</a>
+        <a href="#work" data-i18n="navWork">项目</a>
+        <a href="#play" data-i18n="navPlay">趣味</a>
         <a href="#contact" data-i18n="navContact">联系</a>
       </nav>
 
@@ -31,146 +35,214 @@
 
     <main id="main">
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow" data-i18n="heroEyebrow">Portfolio Framework</p>
+        <div class="hero-copy" data-reveal>
+          <p class="eyebrow" data-i18n="heroEyebrow">Projects / Notes / Play</p>
           <h1 id="hero-title">
-            <span data-i18n="heroTitleLine1">Your Name</span>
-            <span data-i18n="heroTitleLine2">个人作品集</span>
+            <span data-i18n="heroTitleLine1">lin</span>
+            <span data-i18n="heroTitleLine2">项目与灵感存放处</span>
           </h1>
           <p class="hero-text" data-i18n="heroText">
-            一个为开发者、设计者或创作者准备的极简个人网站框架。替换这里的文字，就能把它变成你的线上名片。
+            这里收纳个人项目、网页实验和一些有趣的观察。它不是一份严肃简历，更像一张持续更新的创作索引。
           </p>
           <div class="hero-actions" aria-label="Primary actions">
             <a class="button button-dark" href="#work" data-i18n="heroPrimary"
-              >查看作品</a
+              >查看项目</a
             >
-            <a class="button button-light" href="#contact" data-i18n="heroSecondary"
-              >联系我</a
+            <a class="button button-light" href="#play" data-i18n="heroSecondary"
+              >看看趣味分享</a
             >
           </div>
         </div>
 
-        <aside class="hero-panel" aria-label="Site snapshot">
+        <aside class="hero-panel" data-reveal data-tilt aria-label="Site snapshot">
           <div class="panel-topline">
             <span data-i18n="panelLabel">Index</span>
             <span>2026</span>
           </div>
-          <div class="display-mark">01</div>
+          <div class="display-mark">lin</div>
+          <div class="panel-art" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
           <dl class="stat-list">
             <div>
               <dt data-i18n="statOneLabel">Focus</dt>
-              <dd data-i18n="statOneValue">Portfolio</dd>
+              <dd data-i18n="statOneValue">Projects</dd>
             </div>
             <div>
-              <dt data-i18n="statTwoLabel">Style</dt>
+              <dt data-i18n="statTwoLabel">Mood</dt>
               <dd data-i18n="statTwoValue">Editorial</dd>
             </div>
             <div>
-              <dt data-i18n="statThreeLabel">Status</dt>
-              <dd data-i18n="statThreeValue">Replaceable</dd>
+              <dt data-i18n="statThreeLabel">Contact</dt>
+              <dd data-i18n="statThreeValue">在线</dd>
             </div>
           </dl>
         </aside>
       </section>
 
-      <section class="section" id="about" aria-labelledby="about-title">
-        <div class="section-heading">
+      <section class="section about-section" id="about" aria-labelledby="about-title">
+        <div class="section-heading" data-reveal>
           <p class="section-index">01</p>
-          <h2 id="about-title" data-i18n="aboutTitle">简介占位</h2>
+          <h2 id="about-title" data-i18n="aboutTitle">关于这个空间</h2>
         </div>
         <div class="section-body about-grid">
-          <p class="lead" data-i18n="aboutLead">
-            在这里写下你的身份、兴趣方向和正在探索的问题。保持简短、有力量，让访客快速知道你是谁。
+          <p class="lead" data-i18n="aboutLead" data-reveal>
+            lin 用这个页面整理项目、创作实验和偶尔冒出来的灵感。先把结构搭好，再让真实作品慢慢长出来。
           </p>
-          <div class="note-stack">
+          <div class="note-stack" data-reveal>
             <p data-i18n="aboutNoteOne">
-              可替换为：学校 / 专业 / 城市 / 研究方向 / 当前目标。
+              适合放课程项目、开源练习、网页实验、读书笔记，或者任何值得留一眼的东西。
             </p>
             <p data-i18n="aboutNoteTwo">
-              建议控制在 2-3 句话，避免把首页写成完整简历。
+              页面保持轻量、可替换、可持续更新，不把首页写成一份过长的简历。
             </p>
           </div>
         </div>
       </section>
 
       <section class="section" id="work" aria-labelledby="work-title">
-        <div class="section-heading">
+        <div class="section-heading" data-reveal>
           <p class="section-index">02</p>
-          <h2 id="work-title" data-i18n="workTitle">精选作品</h2>
+          <h2 id="work-title" data-i18n="workTitle">个人项目展示</h2>
         </div>
         <div class="project-grid">
-          <article class="project-card">
+          <article class="project-card" data-reveal data-tilt>
+            <div class="project-visual visual-one" aria-hidden="true">
+              <span></span>
+              <span></span>
+            </div>
             <div class="project-meta">
               <span>Project 01</span>
               <span data-i18n="projectTypeOne">Web / App</span>
             </div>
-            <h3 data-i18n="projectOneTitle">项目标题占位</h3>
+            <h3 data-i18n="projectOneTitle">交互网页实验槽位</h3>
             <p data-i18n="projectOneText">
-              用一句话说明项目解决了什么问题，以及你负责的核心部分。
+              用来展示一个完整的小型网页、工具或应用。后续可替换为项目截图、仓库和技术说明。
             </p>
-            <a href="#" data-i18n="projectLink">查看链接</a>
+            <a
+              href="https://github.com/lin020905"
+              target="_blank"
+              rel="noreferrer"
+              data-i18n="projectOneLink"
+              >去 GitHub 查看</a
+            >
           </article>
 
-          <article class="project-card">
+          <article class="project-card" data-reveal data-tilt>
+            <div class="project-visual visual-two" aria-hidden="true">
+              <span></span>
+              <span></span>
+            </div>
             <div class="project-meta">
               <span>Project 02</span>
               <span data-i18n="projectTypeTwo">Research / Tool</span>
             </div>
-            <h3 data-i18n="projectTwoTitle">项目标题占位</h3>
+            <h3 data-i18n="projectTwoTitle">工具与数据练习</h3>
             <p data-i18n="projectTwoText">
-              可以放课程项目、开源项目、实验作品或一段值得展示的实践。
+              适合放数据可视化、自动化脚本、课程研究或把复杂信息整理清楚的小工具。
             </p>
-            <a href="#" data-i18n="projectLink">查看链接</a>
+            <a href="#contact" data-i18n="projectTwoLink">交流这个方向</a>
           </article>
 
-          <article class="project-card">
+          <article class="project-card" data-reveal data-tilt>
+            <div class="project-visual visual-three" aria-hidden="true">
+              <span></span>
+              <span></span>
+            </div>
             <div class="project-meta">
               <span>Project 03</span>
               <span data-i18n="projectTypeThree">Creative / Study</span>
             </div>
-            <h3 data-i18n="projectThreeTitle">项目标题占位</h3>
+            <h3 data-i18n="projectThreeTitle">创意编码占位</h3>
             <p data-i18n="projectThreeText">
-              如果暂时没有项目，可以先保留为占位，后续替换为真实内容。
+              留给视觉实验、小游戏、动效练习或还没长成正式项目的原型。
             </p>
-            <a href="#" data-i18n="projectLink">查看链接</a>
+            <a href="#play" data-i18n="projectThreeLink">看看灵感记录</a>
           </article>
         </div>
       </section>
 
       <section class="section split-section" aria-labelledby="skills-title">
-        <div class="section-heading">
+        <div class="section-heading" data-reveal>
           <p class="section-index">03</p>
-          <h2 id="skills-title" data-i18n="skillsTitle">方向与技能</h2>
+          <h2 id="skills-title" data-i18n="skillsTitle">方向与工具箱</h2>
         </div>
-        <div class="skill-list" aria-label="Skills">
+        <div class="skill-list" aria-label="Skills" data-reveal>
           <span data-i18n="skillOne">Frontend</span>
-          <span data-i18n="skillTwo">Design Systems</span>
+          <span data-i18n="skillTwo">Creative Coding</span>
           <span data-i18n="skillThree">Data Visualization</span>
-          <span data-i18n="skillFour">Creative Coding</span>
-          <span data-i18n="skillFive">Open Source</span>
+          <span data-i18n="skillFour">UI Details</span>
+          <span data-i18n="skillFive">Notes</span>
+        </div>
+      </section>
+
+      <section class="section play-section" id="play" aria-labelledby="play-title">
+        <div class="section-heading" data-reveal>
+          <p class="section-index">04</p>
+          <h2 id="play-title" data-i18n="playTitle">趣味分享</h2>
+        </div>
+        <div class="play-content">
+          <p class="play-intro" data-i18n="playIntro" data-reveal>
+            这里预留给短笔记、灵感碎片和还没变成项目的小想法。它可以很轻，也可以慢慢变成一个小型日志。
+          </p>
+          <div class="note-card-grid">
+            <article class="note-card" data-reveal data-tilt>
+              <div class="note-mark">N01</div>
+              <h3 data-i18n="noteOneTitle">今天看到的好设计</h3>
+              <p data-i18n="noteOneText">
+                记录一个网页、海报或界面细节，顺手写下它为什么让人停留。
+              </p>
+              <span data-i18n="noteOneTag">Design Note</span>
+            </article>
+            <article class="note-card" data-reveal data-tilt>
+              <div class="note-mark">N02</div>
+              <h3 data-i18n="noteTwoTitle">还没完成的小实验</h3>
+              <p data-i18n="noteTwoText">
+                放一些未完成的动效、交互、代码草图，让它们先有一个位置。
+              </p>
+              <span data-i18n="noteTwoTag">Prototype</span>
+            </article>
+            <article class="note-card" data-reveal data-tilt>
+              <div class="note-mark">N03</div>
+              <h3 data-i18n="noteThreeTitle">值得收藏的链接</h3>
+              <p data-i18n="noteThreeText">
+                以后可以整理工具、文章、教程或灵感来源，形成自己的资料索引。
+              </p>
+              <span data-i18n="noteThreeTag">Bookmark</span>
+            </article>
+          </div>
         </div>
       </section>
 
       <section class="contact" id="contact" aria-labelledby="contact-title">
-        <div>
-          <p class="section-index">04</p>
+        <div data-reveal>
+          <p class="section-index">05</p>
           <h2 id="contact-title" data-i18n="contactTitle">保持联系</h2>
         </div>
-        <p data-i18n="contactText">
-          把这里替换成邮箱、GitHub、LinkedIn、作品集文档或任何你希望访客点击的入口。
-        </p>
-        <div class="contact-links">
-          <a href="https://github.com/lin020905" target="_blank" rel="noreferrer"
-            >GitHub</a
-          >
-          <a href="#" data-i18n="contactLinkOne">Email</a>
-          <a href="#" data-i18n="contactLinkTwo">Resume</a>
+        <div class="contact-body" data-reveal>
+          <p data-i18n="contactText">
+            如果你想看更多项目、交流想法，或者只是打个招呼，可以从这里找到 lin。
+          </p>
+          <div class="contact-links">
+            <a
+              href="https://github.com/lin020905"
+              target="_blank"
+              rel="noreferrer"
+              data-i18n="contactGithub"
+              >GitHub</a
+            >
+            <a href="mailto:zuanlin3@gmail.com" data-i18n="contactEmail"
+              >zuanlin3@gmail.com</a
+            >
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p data-i18n="footerText">© 2026 lin020905. Built for GitHub Pages.</p>
+      <p data-i18n="footerText">© 2026 lin. Built for GitHub Pages.</p>
       <a href="#top" data-i18n="backTop">返回顶部</a>
     </footer>
 
