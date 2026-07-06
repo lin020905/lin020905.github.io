@@ -1,0 +1,37 @@
+title: lin
+email: zuanlin3@gmail.com
+description: "lin 的个人项目展示、创作实验和随笔索引。"
+description_en: "lin's index for personal projects, creative experiments, and notes."
+url: "https://lin020905.github.io"
+baseurl: ""
+github_username: lin020905
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+  notes:
+    output: true
+    permalink: /notes/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: project
+  - scope:
+      path: ""
+      type: notes
+    values:
+      layout: note
+
+markdown: kramdown
+kramdown:
+  input: GFM
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE

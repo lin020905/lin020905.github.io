@@ -1,0 +1,27 @@
+---
+layout: default
+---
+<article class="detail-page project-detail">
+  <header class="detail-header" data-reveal>
+    <p class="detail-kicker">{{ page.type }}</p>
+    <h1>
+      <span class="lang-zh">{{ page.title }}</span>
+      <span class="lang-en">{{ page.title_en | default: page.title }}</span>
+    </h1>
+    {% if page.summary %}
+      <p class="detail-summary">
+        <span class="lang-zh">{{ page.summary }}</span>
+        <span class="lang-en">{{ page.summary_en | default: page.summary }}</span>
+      </p>
+    {% endif %}
+    {% if page.link %}
+      <a class="text-link" href="{{ page.link }}" target="_blank" rel="noreferrer" data-i18n="openProject">
+        打开项目
+      </a>
+    {% endif %}
+  </header>
+
+  <div class="markdown-body" data-reveal>
+    {{ content }}
+  </div>
+</article>

@@ -1,0 +1,25 @@
+---
+layout: default
+---
+<article class="detail-page note-detail">
+  <header class="detail-header" data-reveal>
+    <p class="detail-kicker">
+      {{ page.date | date: "%Y.%m.%d" }}
+      {% if page.tag %}/ {{ page.tag }}{% endif %}
+    </p>
+    <h1>
+      <span class="lang-zh">{{ page.title }}</span>
+      <span class="lang-en">{{ page.title_en | default: page.title }}</span>
+    </h1>
+    {% if page.summary %}
+      <p class="detail-summary">
+        <span class="lang-zh">{{ page.summary }}</span>
+        <span class="lang-en">{{ page.summary_en | default: page.summary }}</span>
+      </p>
+    {% endif %}
+  </header>
+
+  <div class="markdown-body" data-reveal>
+    {{ content }}
+  </div>
+</article>

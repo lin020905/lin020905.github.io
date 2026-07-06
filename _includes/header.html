@@ -1,0 +1,26 @@
+<header class="site-header" id="top">
+  <div class="site-heading">
+    <a class="site-title" href="{{ '/' | relative_url }}" aria-label="lin home">
+      {{ site.title }}
+    </a>
+    <p class="site-description">
+      <span data-i18n="siteDescription">项目 / 随笔 / 折腾记录</span>
+    </p>
+  </div>
+
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a href="{{ '/#about' | relative_url }}" data-i18n="navAbout">简介</a>
+    <span aria-hidden="true">/</span>
+    <a href="{{ '/#projects' | relative_url }}" data-i18n="navProjects">项目</a>
+    <span aria-hidden="true">/</span>
+    <a href="{{ '/#notes' | relative_url }}" data-i18n="navNotes">随笔</a>
+    <span aria-hidden="true">/</span>
+    <a href="{{ '/#contact' | relative_url }}" data-i18n="navContact">联系</a>
+  </nav>
+
+  <div class="language-switch" aria-label="Language switch">
+    <button type="button" data-language="zh" aria-pressed="true">ZH</button>
+    <span aria-hidden="true">/</span>
+    <button type="button" data-language="en" aria-pressed="false">EN</button>
+  </div>
+</header>
