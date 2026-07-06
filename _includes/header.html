@@ -68,11 +68,13 @@
 
     <audio
       class="music-audio"
-      src="{{ '/assets/audio/dreamworld-loop.mp3' | relative_url }}"
       preload="none"
       loop
       data-music-audio
-    ></audio>
+    >
+      <source src="{{ '/assets/audio/dreamworld-loop.mp3' | relative_url }}" type="audio/mpeg" />
+      <source src="{{ '/assets/audio/dreamworld-loop.MP3' | relative_url }}" type="audio/mpeg" />
+    </audio>
   </section>
 
   <nav class="site-nav" aria-label="Primary navigation">
