@@ -90,6 +90,7 @@ let currentQuoteIndex = 0;
 let quoteAnimationTimer;
 let stickyHeaderOffsetFrame;
 let stickyHeaderResizeObserver;
+let headerCompactFrame;
 let buildRefreshAttempted = false;
 let legacyCacheReloadAttempted = false;
 let sectionObserver;
@@ -217,6 +218,52 @@ function setupStickyHeaderOffset() {
   }
 }
 
+function setHeaderCompact(compact) {
+  if (!siteHeader) {
+    return;
+  }
+
+  const wasCompact = siteHeader.classList.contains("is-compact");
+  siteHeader.classList.toggle("is-compact", compact);
+
+  if (wasCompact !== compact) {
+    updateStickyHeaderOffset();
+  }
+}
+
+function updateHeaderCompactState() {
+  setHeaderCompact(window.scrollY > 12);
+}
+
+function queueHeaderCompactUpdate(delay = 0) {
+  if (!siteHeader) {
+    return;
+  }
+
+  const scheduleUpdate = () => {
+    window.cancelAnimationFrame(headerCompactFrame);
+    headerCompactFrame = window.requestAnimationFrame(updateHeaderCompactState);
+  };
+
+  if (delay > 0) {
+    window.setTimeout(scheduleUpdate, delay);
+    return;
+  }
+
+  scheduleUpdate();
+}
+
+function setupHeaderCompaction() {
+  if (!siteHeader) {
+    return;
+  }
+
+  updateHeaderCompactState();
+  window.addEventListener("scroll", () => queueHeaderCompactUpdate(), { passive: true });
+  window.addEventListener("resize", () => queueHeaderCompactUpdate());
+  window.addEventListener("orientationchange", () => queueHeaderCompactUpdate(240));
+}
+
 function animateLanguageChange() {
   if (prefersReducedMotion.matches) {
     return;
@@ -291,6 +338,7 @@ function setLanguage(language) {
   updateMusicCopy();
   saveLanguage(currentLanguage);
   animateLanguageChange();
+  queueHeaderCompactUpdate(260);
   queueStickyHeaderOffsetUpdate(280);
   queueCurrentHashScrollCorrection(340);
 }
@@ -858,18 +906,30 @@ function scrollAfterPageSwap(url, shouldScroll) {
   }
 
   const behavior = prefersReducedMotion.matches ? "auto" : "smooth";
-  updateStickyHeaderOffset();
 
   if (url.hash) {
+    if (url.hash === "#top") {
+      window.scrollTo({
+        top: 0,
+        behavior,
+      });
+      queueHeaderCompactUpdate(prefersReducedMotion.matches ? 0 : 520);
+      return;
+    }
+
     const target = document.querySelector(url.hash);
 
     if (target) {
+      setHeaderCompact(true);
+      updateStickyHeaderOffset();
+
       const targetTop = target.getBoundingClientRect().top + window.scrollY;
 
       window.scrollTo({
         top: Math.max(0, targetTop - getStickyHeaderOffset() - getAnchorScrollGap()),
         behavior,
       });
+      queueHeaderCompactUpdate(prefersReducedMotion.matches ? 0 : 520);
       return;
     }
   }
@@ -878,6 +938,7 @@ function scrollAfterPageSwap(url, shouldScroll) {
     top: 0,
     behavior,
   });
+  queueHeaderCompactUpdate(prefersReducedMotion.matches ? 0 : 520);
 }
 
 function correctCurrentHashScroll() {
@@ -944,6 +1005,7 @@ function applyFetchedPage(html, url, { replace = false, scroll = true } = {}) {
   setupSectionSwitching();
   setupReveal();
   scrollAfterPageSwap(url, scroll);
+  queueHeaderCompactUpdate(prefersReducedMotion.matches ? 0 : 520);
 }
 
 function navigateWithinSite(url, options = {}) {
@@ -1124,6 +1186,7 @@ setupStickyHeaderOffset();
 setupLanguageSwitch();
 setupQuoteRotator();
 setupMusicPlayer();
+setupHeaderCompaction();
 setupSectionSwitching();
 setupReveal();
 setupPersistentNavigation();
