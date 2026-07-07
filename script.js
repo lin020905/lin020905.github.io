@@ -69,11 +69,12 @@ const storageKey = "lin020905-site-language";
 const buildRefreshKey = "lin020905-build-refresh";
 const legacyCacheCleanKey = "lin020905-legacy-cache-cleaned";
 const currentBuildVersion = document.documentElement.dataset.buildVersion || "";
+const mainNode = document.querySelector("#main");
 const languageButtons = document.querySelectorAll("[data-language]");
-const translatableNodes = document.querySelectorAll("[data-i18n]");
+let translatableNodes = document.querySelectorAll("[data-i18n]");
 const quoteNode = document.querySelector("[data-quote-rotator]");
 const quoteFrame = document.querySelector("[data-quote-frame]");
-const sectionNodes = document.querySelectorAll("[data-section]");
+let sectionNodes = document.querySelectorAll("[data-section]");
 const sectionLinks = document.querySelectorAll("[data-section-link]");
 const musicPlayer = document.querySelector("[data-music-player]");
 const musicToggle = document.querySelector("[data-music-toggle]");
@@ -88,6 +89,8 @@ let currentQuoteIndex = 0;
 let quoteAnimationTimer;
 let buildRefreshAttempted = false;
 let legacyCacheReloadAttempted = false;
+let sectionObserver;
+let revealObserver;
 let musicContext;
 let musicFilter;
 let musicMaster;
@@ -162,6 +165,11 @@ function animateLanguageChange() {
   }, 260);
 }
 
+function refreshPageNodes() {
+  translatableNodes = document.querySelectorAll("[data-i18n]");
+  sectionNodes = document.querySelectorAll("[data-section]");
+}
+
 function updateQuote({ animate = false } = {}) {
   if (!quoteNode) {
     return;
@@ -194,6 +202,7 @@ function updateQuote({ animate = false } = {}) {
 function setLanguage(language) {
   const dictionary = translations[language] || translations.zh;
   currentLanguage = language === "en" || language === "zh" ? language : "zh";
+  refreshPageNodes();
 
   translatableNodes.forEach((node) => {
     const key = node.dataset.i18n;
@@ -637,7 +646,14 @@ function setActiveSection(sectionId) {
 }
 
 function setupSectionSwitching() {
+  if (sectionObserver) {
+    sectionObserver.disconnect();
+  }
+
+  document.documentElement.classList.remove("section-switch-ready");
+
   if (!sectionNodes.length) {
+    sectionLinks.forEach((link) => link.removeAttribute("aria-current"));
     return;
   }
 
@@ -653,7 +669,7 @@ function setupSectionSwitching() {
     Array.from(sectionNodes, (section) => [section.id, section === sectionNodes[0] ? 1 : 0]),
   );
 
-  const sectionObserver = new IntersectionObserver(
+  sectionObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         sectionRatios.set(entry.target.id, entry.intersectionRatio);
@@ -677,6 +693,10 @@ function setupSectionSwitching() {
 }
 
 function setupReveal() {
+  if (revealObserver) {
+    revealObserver.disconnect();
+  }
+
   const revealNodes = document.querySelectorAll("[data-reveal]");
 
   if (!revealNodes.length) {
@@ -690,7 +710,7 @@ function setupReveal() {
     return;
   }
 
-  const revealObserver = new IntersectionObserver(
+  revealObserver = new IntersectionObserver(
     (entries, observer) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -706,6 +726,137 @@ function setupReveal() {
   );
 
   revealNodes.forEach((node) => revealObserver.observe(node));
+}
+
+function shouldHandlePageLink(link) {
+  if (!link || !mainNode || link.target || link.hasAttribute("download")) {
+    return false;
+  }
+
+  const nextUrl = new URL(link.href, window.location.href);
+  const currentUrl = new URL(window.location.href);
+
+  if (nextUrl.origin !== currentUrl.origin) {
+    return false;
+  }
+
+  if (nextUrl.pathname === currentUrl.pathname && nextUrl.search === currentUrl.search && nextUrl.hash) {
+    return false;
+  }
+
+  if (/\.(?:avif|gif|jpe?g|mp3|pdf|png|svg|webp|zip)$/i.test(nextUrl.pathname)) {
+    return false;
+  }
+
+  return true;
+}
+
+function scrollAfterPageSwap(url, shouldScroll) {
+  if (!shouldScroll) {
+    return;
+  }
+
+  if (url.hash) {
+    const target = document.querySelector(url.hash);
+
+    if (target) {
+      target.scrollIntoView({ behavior: prefersReducedMotion.matches ? "auto" : "smooth" });
+      return;
+    }
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: prefersReducedMotion.matches ? "auto" : "smooth",
+  });
+}
+
+function applyFetchedPage(html, url, { replace = false, scroll = true } = {}) {
+  const nextDocument = new DOMParser().parseFromString(html, "text/html");
+  const nextMain = nextDocument.querySelector("#main");
+
+  if (!nextMain || !mainNode) {
+    window.location.assign(url.href);
+    return;
+  }
+
+  mainNode.innerHTML = nextMain.innerHTML;
+
+  const nextTitle = nextDocument.querySelector("title");
+
+  if (nextTitle) {
+    document.title = nextTitle.textContent;
+  }
+
+  if (replace) {
+    window.history.replaceState(null, "", url.href);
+  } else {
+    window.history.pushState(null, "", url.href);
+  }
+
+  refreshPageNodes();
+  setLanguage(currentLanguage);
+  setupSectionSwitching();
+  setupReveal();
+  scrollAfterPageSwap(url, scroll);
+}
+
+function navigateWithinSite(url, options = {}) {
+  if (!("fetch" in window) || !("DOMParser" in window) || !mainNode) {
+    window.location.assign(url.href);
+    return;
+  }
+
+  mainNode.setAttribute("aria-busy", "true");
+
+  fetch(url.href, {
+    cache: "no-store",
+    credentials: "same-origin",
+    headers: {
+      "X-Requested-With": "fetch",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Navigation failed with ${response.status}`);
+      }
+
+      return response.text();
+    })
+    .then((html) => {
+      applyFetchedPage(html, url, options);
+    })
+    .catch(() => {
+      window.location.assign(url.href);
+    })
+    .finally(() => {
+      mainNode.removeAttribute("aria-busy");
+    });
+}
+
+function setupPersistentNavigation() {
+  if (!mainNode) {
+    return;
+  }
+
+  document.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    const link = target ? target.closest("a[href]") : null;
+
+    if (!shouldHandlePageLink(link)) {
+      return;
+    }
+
+    event.preventDefault();
+    navigateWithinSite(new URL(link.href, window.location.href));
+  });
+
+  window.addEventListener("popstate", () => {
+    navigateWithinSite(new URL(window.location.href), {
+      replace: true,
+      scroll: false,
+    });
+  });
 }
 
 function setupFreshBuildCheck() {
@@ -820,3 +971,4 @@ setupQuoteRotator();
 setupMusicPlayer();
 setupSectionSwitching();
 setupReveal();
+setupPersistentNavigation();
