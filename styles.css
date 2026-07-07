@@ -7,6 +7,8 @@
   --link-hover: #333333;
   --accent: #2a7ae2;
   --content-width: 800px;
+  --sticky-header-offset: 0px;
+  --anchor-scroll-gap: 28px;
 }
 
 * {
@@ -14,6 +16,7 @@
 }
 
 html {
+  scroll-padding-top: calc(var(--sticky-header-offset) + var(--anchor-scroll-gap));
   scroll-behavior: smooth;
 }
 
@@ -88,9 +91,13 @@ a:focus-visible {
 }
 
 .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   padding: 56px 0 40px;
   border-top: 5px solid var(--ink);
   border-bottom: 1px solid var(--muted-light);
+  background: var(--paper);
 }
 
 .site-topline {
@@ -434,6 +441,12 @@ a:focus-visible {
 
 .page-content {
   padding: 0;
+}
+
+.home-section,
+.detail-page,
+.site-footer {
+  scroll-margin-top: calc(var(--sticky-header-offset) + var(--anchor-scroll-gap));
 }
 
 .section-label,
