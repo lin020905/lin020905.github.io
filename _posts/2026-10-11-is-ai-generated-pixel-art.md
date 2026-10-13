@@ -1,21 +1,24 @@
 ---
 layout: post
 title: "你 AI 生成的真的是像素画吗？"
+title_zh: "你 AI 生成的真的是像素画吗？"
+title_en: "Is Your AI-Generated Image Really Pixel Art?"
 date: 2026-10-11 12:00:00 +0800
 lang: zh-CN
 ---
 
+<section data-lang="zh" markdown="1">
 # 你 AI 生成的真的是像素画吗？
 
 请先看这两张对比图。
 
 ![同一角色：左为AI原始生成图，右为16色网格整理版]({{ '/assets/images/ai-pixel-art/public-01-overview.png' | relative_url }})
 
-*图 1：本文的主角。左：AI 直接生成的"像素风"图；右：经工作流整理后的真像素画（16 色）。*
+*图 1：本文的主角。左：AI 直接生成的“像素风”图；右：经工作流整理后的真像素画（16 色）。*
 
 或许你会说：这两张图看起来也没什么区别？把图片放大 8 倍，问题就会显现。
 
-## 一个"像素"里，住着 63 种颜色
+## 一个“像素”里，住着 63 种颜色
 
 ![三个8×8方块放大对比]({{ '/assets/images/ai-pixel-art/public-02-cells.png' | relative_url }})
 
@@ -23,13 +26,13 @@ lang: zh-CN
 
 在真像素画里，一个展示格（放大后的像素块）只允许有一种颜色，它是画面的最小单位；下一档颜色，要放到旁边的格子里。拿这条规矩对照上图，三个方块里只有背景方块合格。
 
-把同样的检查跑遍全图：完全单色的 8×8 方块只占约 **3.7%**。换句话说，这张图 96% 以上的"像素"，内部都不止一种颜色。
+把同样的检查跑遍全图：完全单色的 8×8 方块只占约 **3.7%**。换句话说，这张图 96% 以上的“像素”，内部都不止一种颜色。
 
 ## 颜色数量失控
 
 全图一共 **78,548** 种颜色。作为参照，FC 红白机的整个可用调色板只有 54 色。
 
-有一点要说明：颜色多本身不等于"AI 罪证"——压缩、缩放同样会堆高颜色数。但结合上一条看，它说明这张图从未受过"有限色板"的约束。人话就是：这不是人用有限色彩画出来的画，而很可能是 AI 生成的画。
+有一点要说明：颜色多本身不等于“AI 罪证”——压缩、缩放同样会堆高颜色数。但结合上一条看，它说明这张图从未受过“有限色板”的约束。人话就是：这不是人用有限色彩画出来的画，而很可能是 AI 生成的画。
 
 ## 边缘是软的
 
@@ -37,21 +40,21 @@ lang: zh-CN
 
 *图 3：同一处帽檐。左：原图，阶梯边缘旁挂着一圈细碎的过渡色，像没擦干净的水彩；右：整理版，从背景色直接跳到轮廓色。*
 
-三个问题指向同一件事：**这张图有像素画的"长相"，却没有像素画的"结构"。** 知道问题在哪还不够，得先弄明白它为什么会发生。
+三个问题指向同一件事：**这张图有像素画的“长相”，却没有像素画的“结构”。** 知道问题在哪还不够，得先弄明白它为什么会发生。
 
 ## 为什么模型画不出像素的纪律？
 
 要回答这个问题，得先知道生成模型是怎么作画的。
 
-现在的扩散模型不在"像素网格"上工作，而是在一个连续空间里逐步降噪、从噪声里"显影"出图像。它从海量训练图里学到的是"像素风长什么样"——方块、阶梯、复古配色；但"一格只能一个颜色、色板必须有限、边缘必须硬切"不是外观，是**结构纪律**，不在它的学习目标里。
+现在的扩散模型不在“像素网格”上工作，而是在一个连续空间里逐步降噪、从噪声里“显影”出图像。它从海量训练图里学到的是“像素风长什么样”——方块、阶梯、复古配色；但“一格只能一个颜色、色板必须有限、边缘必须硬切”不是外观，是**结构纪律**，不在它的学习目标里。
 
-这就像一个临摹高手：他能把砖墙画得惟妙惟肖，但真砖墙的砖缝是要对齐的，而他只负责"像"，不负责对齐。提示词里写 pixel art、limited palette，他也会答应得好好的——但他没有执行这条纪律的机制。
+这就像一个临摹高手：他能把砖墙画得惟妙惟肖，但真砖墙的砖缝是要对齐的，而他只负责“像”，不负责对齐。提示词里写 pixel art、limited palette，他也会答应得好好的——但他没有执行这条纪律的机制。
 
-所以问题的解法不是"让模型画得更像"，而是**给它补一道后处理：把结果按到网格和色板上**。这正是我用 ComfyUI 工作流要做的事。
+所以问题的解法不是“让模型画得更像”，而是**给它补一道后处理：把结果按到网格和色板上**。这正是我用 ComfyUI 工作流要做的事。
 
 ## 先用模型生成原图，再用工作流润色
 
-思路很直接：造型交给模型，纪律交给流水线——生成段负责"画什么"，整理段负责"合不合规"。
+思路很直接：造型交给模型，纪律交给流水线——生成段负责“画什么”，整理段负责“合不合规”。
 
 ![完整工作流截图]({{ '/assets/images/ai-pixel-art/public-07-workflow-full.png' | relative_url }})
 
@@ -71,7 +74,7 @@ lang: zh-CN
 | 单色方块比例 | 约 3.7% | 100% |
 | 原生图 | 无法无损还原 | 可无损还原为 96×160 |
 
-两点说明。第一，这些数字证明的是"网格整理完成"，不代表手绘，也不直接代表画得好。第二，78,548 这个数字单独看不能给任何图定罪——压缩和缩放也会堆高颜色数。本例的关键证据其实是开头那句：**已经有 8 像素网格的外观，格内却不纯**。
+两点说明。第一，这些数字证明的是“网格整理完成”，不代表手绘，也不直接代表画得好。第二，78,548 这个数字单独看不能给任何图定罪——压缩和缩放也会堆高颜色数。本例的关键证据其实是开头那句：**已经有 8 像素网格的外观，格内却不纯**。
 
 ## 几条实践经验
 
@@ -79,7 +82,7 @@ lang: zh-CN
 
 *图 6：同一张原生图、同一倍率，只有放大滤镜不同。左：最近邻，格子干净利落；右：双线性平滑，颜色开始和稀泥。*
 
-- **网格优先**。先对齐、再加工；"像素"大小不一的图，硬切 8×8 会截断眼睛和描边；
+- **网格优先**。先对齐、再加工；“像素”大小不一的图，硬切 8×8 会截断眼睛和描边；
 - **量化后验货**。自动算法可能让背景偏色、吞掉眼睛高光；关键颜色要锁定，必要时手工补回；
 - **展示只用整数倍最近邻**。平滑缩放会当场破坏像素结构（图 6）；
 - **保留原生文件**。改图请改 96×160 那份，768×1280 只作展示。
@@ -97,3 +100,99 @@ lang: zh-CN
 ---
 
 *统计口径：两张 768×1280 PNG，按从左上角起的 8×8 网格逐块比较；颜色数计入整个画面。工作流截图为操作者本机界面，节点文字保留原样；局部放大用于让参数可读。*
+</section>
+
+<section data-lang="en" markdown="1">
+# Is Your AI-Generated Image Really Pixel Art?
+
+First, take a look at these two images.
+
+![The same character: original AI-generated image on the left and a 16-color grid-cleaned version on the right]({{ '/assets/images/ai-pixel-art/public-01-overview.png' | relative_url }})
+
+*Figure 1: The subject of this article. Left: a “pixel-art-style” image generated directly by AI. Right: actual pixel art cleaned up by the workflow with a 16-color palette.*
+
+You might say that the two images do not look very different. Enlarge them eight times, however, and the problem becomes obvious.
+
+## 63 Colors Inside a Single “Pixel”
+
+![Three enlarged 8×8 blocks]({{ '/assets/images/ai-pixel-art/public-02-cells.png' | relative_url }})
+
+*Figure 2: Three enlarged 8×8 blocks from the original image. The block on the crown contains 31 colors; the background block contains only one and is the sole exception; the block near the cloak edge contains an astonishing 63.*
+
+In true pixel art, each display cell—the enlarged pixel block—may contain only one color. It is the smallest unit of the image; another shade must occupy a neighboring cell. By that rule, only the background block above qualifies.
+
+Run the same check across the entire image and only about **3.7%** of its 8×8 blocks are completely monochrome. In other words, more than 96% of its apparent “pixels” contain multiple colors internally.
+
+## The Color Count Is Out of Control
+
+The image contains **78,548** distinct colors. For comparison, the entire usable palette of the Nintendo Entertainment System contained only 54 colors.
+
+One caveat: a high color count alone is not proof of AI generation—compression and scaling can inflate it too. Combined with the previous test, however, it shows that this image was never constrained by a limited palette. Put simply, it was not drawn color by color under pixel-art restrictions and was very likely generated by AI.
+
+## The Edges Are Soft
+
+![A close comparison of the hat brim]({{ '/assets/images/ai-pixel-art/public-03-edge.png' | relative_url }})
+
+*Figure 3: The same section of the hat brim. Left: the original, where tiny transition colors cling to the stepped edge like watercolor that was not fully erased. Right: the cleaned version, which jumps directly from the background color to the outline color.*
+
+All three problems point to the same conclusion: **the image has the appearance of pixel art but not its structure.** Identifying the problem is only the first step; we also need to understand why it happens.
+
+## Why Can’t Models Follow Pixel-Art Discipline?
+
+To answer that question, we first need to understand how generative models make images.
+
+Modern diffusion models do not work on a strict pixel grid. They gradually remove noise in a continuous space until an image emerges. From enormous training sets they learn what pixel art looks like—blocks, stair-step edges, and retro palettes. But rules such as “one color per cell,” “use a limited palette,” and “keep edges hard” are not visual motifs; they are **structural discipline**, and that discipline is not part of the learning objective.
+
+It is like a gifted copyist who can paint a convincing brick wall but does not ensure that the mortar lines actually align. The model is responsible for resemblance, not construction. You can write *pixel art* and *limited palette* in the prompt, and it will gladly imitate those ideas, but it has no mechanism that guarantees the underlying rules.
+
+The solution is therefore not to make the model imitate pixel art more closely. It is to **add a post-processing stage that forces the result onto a grid and a palette**. That is exactly what my ComfyUI workflow does.
+
+## Generate First, Then Refine with a Workflow
+
+The idea is straightforward: let the model handle the design and let the pipeline enforce discipline. The generation stage decides what to draw; the cleanup stage decides whether it follows the rules.
+
+![The complete workflow]({{ '/assets/images/ai-pixel-art/public-07-workflow-full.png' | relative_url }})
+
+*Figure 4: The complete ComfyUI workflow. The upper half generates the image and the lower half cleans it up. The cleanup group describes itself as “8px double-grid + palette”: an eight-pixel double grid plus palette quantization, with no dithering.*
+
+After cleanup, every color in the image is reduced to this 16-color palette:
+
+![The cleaned 16-color palette]({{ '/assets/images/ai-pixel-art/public-10-palette.png' | relative_url }})
+
+*Figure 5: The final 16-color palette, sorted by frequency. Unsurprisingly, the most common color is the background that covers most of the image.*
+
+Here is the numerical comparison before and after cleanup:
+
+| Metric | Before | After |
+|---|---|---|
+| Total colors | 78,548 | 16 |
+| Monochrome blocks | About 3.7% | 100% |
+| Native image | Cannot be losslessly restored | Losslessly restorable to 96×160 |
+
+Two clarifications are important. First, these numbers prove only that the grid cleanup is complete; they do not prove that the result was hand-drawn or that it is artistically good. Second, the number 78,548 cannot condemn any image by itself, because compression and scaling also increase color counts. The key evidence in this example is the point made at the beginning: **the image already looks like it uses an eight-pixel grid, yet the cells themselves are not solid**.
+
+## Practical Lessons
+
+![Nearest-neighbor and smooth scaling compared]({{ '/assets/images/ai-pixel-art/public-04-scaling.png' | relative_url }})
+
+*Figure 6: The same native image at the same scale, using different enlargement filters. Left: nearest-neighbor scaling keeps the cells crisp. Right: bilinear smoothing begins to blend the colors together.*
+
+- **Grid first.** Align the grid before processing. If the apparent “pixels” vary in size, forcing an 8×8 grid can cut through eyes and outlines.
+- **Inspect after quantization.** Automated algorithms may shift the background color or erase highlights in the eyes. Lock critical colors and restore details by hand when necessary.
+- **Display with integer nearest-neighbor scaling only.** Smooth scaling immediately damages the pixel structure shown in Figure 6.
+- **Keep the native file.** Edit the 96×160 version; use the 768×1280 version only for display.
+
+![16-, 24-, and 32-color versions compared]({{ '/assets/images/ai-pixel-art/public-05-colors.png' | relative_url }})
+
+*Figure 7: A comparison of the 16-, 24-, and 32-color versions. The top row shows the full images and the bottom row enlarges the face. The grid is identical; only the color allocation changes.*
+
+**How many colors should you use?** Sixteen colors produce a more abstract, strongly retro result, while 24 or 32 colors provide more levels of light and shade for skin and materials. More colors are not automatically better—first make sure that the silhouette and color blocks read clearly.
+
+![Native and enlarged versions compared]({{ '/assets/images/ai-pixel-art/public-06-native.png' | relative_url }})
+
+*Figure 8: Left: the true native size of 96×160. Right: the enlarged display version. The image on the left should always remain the editable source.*
+
+---
+
+*Methodology: Two 768×1280 PNG files were compared block by block on an 8×8 grid beginning at the upper-left corner. Color counts include the entire image. The workflow screenshot comes from the operator’s local interface, with node labels left unchanged; selected areas were enlarged to make parameters legible.*
+</section>

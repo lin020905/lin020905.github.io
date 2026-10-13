@@ -1,5 +1,5 @@
 title: "lin020905.github.io"
-description: "Lin 的个人主页，记录代码、学习与生活。"
+description: "Lin 的个人主页，记录代码、学习与生活。 / Lin's personal site for code, learning, and life."
 url: "https://lin020905.github.io"
 baseurl: ""
 lang: "zh-CN"
@@ -8,12 +8,17 @@ timezone: "Asia/Shanghai"
 header_pages:
   - index.md
   - about.md
+  - contact.md
 
 style: dark
-listen_for_clients_preferred_style: false
+listen_for_clients_preferred_style: true
 disable_google_fonts: false
 
 footer: '© 2026 Lin · <a href="https://github.com/lin020905">GitHub</a>'
+
+# Create a form at https://formspree.io and paste its endpoint here.
+# Example: https://formspree.io/f/xxxxxxxx
+contact_form_endpoint: "https://formspree.io/f/xdeawzzj"
 
 plugins:
   - jekyll-seo-tag

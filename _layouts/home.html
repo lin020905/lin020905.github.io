@@ -10,7 +10,14 @@ layout: default
     {%- for post in site.posts -%}
     <li>
       {%- assign date_format = "%Y-%m-%d" -%}
-      [ {{ post.date | date: date_format }} ] <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+      [ {{ post.date | date: date_format }} ] <a href="{{ post.url | relative_url }}">
+        {%- if post.title_zh and post.title_en -%}
+          <span class="lang-inline" data-lang="zh">{{ post.title_zh | escape }}</span>
+          <span class="lang-inline" data-lang="en">{{ post.title_en | escape }}</span>
+        {%- else -%}
+          {{ post.title | escape }}
+        {%- endif -%}
+      </a>
     </li>
     {%- endfor -%}
   </ul>

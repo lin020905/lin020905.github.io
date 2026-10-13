@@ -10,7 +10,7 @@
 default-src 'none';
 connect-src 'self';
 base-uri 'self';
-form-action 'none';
+form-action https://formspree.io;
 img-src 'self' https: data:;
 style-src 'self' https://fonts.googleapis.com;
 font-src 'self' https://fonts.gstatic.com data:;
@@ -26,7 +26,7 @@ script-src 'self';
 
   {%- include head.html -%}
 
-  <body>
+  <body{% if page.title_zh %} data-title-zh="{{ page.title_zh | escape }}"{% endif %}{% if page.title_en %} data-title-en="{{ page.title_en | escape }}"{% endif %}>
     <div class="container">
 
       {%- include header.html -%}
