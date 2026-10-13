@@ -10,6 +10,8 @@ gem 'webrick'
 gem 'csv'
 gem 'base64'
 gem 'bigdecimal'
+gem 'tzinfo', '~> 2.0'
+gem 'tzinfo-data'
 
 # Use libsass via jekyll-sass-converter 2.x to avoid Dart Sass
 # deprecation warnings for @import during local development.
