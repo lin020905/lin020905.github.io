@@ -1,0 +1,11 @@
+*.gem
+.bundle
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+_site
+Gemfile.lock
+node_modules
+.playwright-cli
+*.log
+.DS_Store

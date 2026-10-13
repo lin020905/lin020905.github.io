@@ -1,0 +1,41 @@
+title: "lin020905.github.io"
+description: "Lin 的个人主页，记录代码、学习与生活。"
+url: "https://lin020905.github.io"
+baseurl: ""
+lang: "zh-CN"
+
+header_pages:
+  - index.md
+  - about.md
+
+style: dark
+listen_for_clients_preferred_style: false
+disable_google_fonts: false
+
+footer: '© 2026 Lin · <a href="https://github.com/lin020905">GitHub</a>'
+
+plugins:
+  - jekyll-seo-tag
+
+markdown: kramdown
+permalink: /:year/:month/:day/:title/
+
+sass:
+  style: compressed
+
+exclude:
+  - AGENTS.md
+  - Containerfile
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - LICENSE.txt
+  - README.md
+  - docker-compose.yml
+  - jekyll-theme-console.gemspec
+  - node_modules
+  - screenrec-dark.gif
+  - screenshot-dark.png
+  - screenshot-hacker.png
+  - screenshot-light.png
+  - skills-lock.json
