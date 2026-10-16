@@ -27,6 +27,9 @@ script-src 'self';
   {%- include head.html -%}
 
   <body{% if page.title_zh %} data-title-zh="{{ page.title_zh | escape }}"{% endif %}{% if page.title_en %} data-title-en="{{ page.title_en | escape }}"{% endif %}>
+    {%- if page.url == '/' -%}
+      {%- include entrance.html -%}
+    {%- endif -%}
     <div class="container">
 
       {%- include header.html -%}

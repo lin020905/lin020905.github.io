@@ -1,0 +1,95 @@
+/* A single terminal command; colors and type follow the existing theme. */
+.entrance {
+  --entrance-ready: 1;
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+  place-items: start;
+  padding: 4px;
+  padding-top: max(4px, env(safe-area-inset-top));
+  padding-left: max(4px, env(safe-area-inset-left));
+  background: var(--background-color, #000);
+  color: var(--text-color, #dbdbdb);
+  font-family: inherit;
+  opacity: 1;
+  transition: opacity 400ms ease;
+}
+
+.entrance[hidden] { display: none; }
+html.entrance-active, html.entrance-active body { overflow: hidden; }
+.entrance-active .container { visibility: hidden; }
+.entrance-active .entrance:not([hidden]) { display: grid; }
+.entrance-revealing .container { visibility: visible; }
+.entrance-revealing .entrance { opacity: 0; }
+
+.entrance__command {
+  /* Start at the terminal's first cell, using the site's normal text size. */
+  width: max-content;
+  white-space: nowrap;
+  font: inherit;
+  letter-spacing: 0;
+}
+.entrance__cursor {
+  display: inline-block;
+  width: 1ch;
+  height: 1em;
+  vertical-align: -0.15em;
+  background: currentColor;
+  animation: entrance-blink 400ms steps(1, end) infinite;
+}
+.entrance[data-phase='typing'] .entrance__cursor { animation: none; }
+.entrance[data-phase='holding'] .entrance__cursor { animation-duration: 600ms; }
+
+.entrance__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.entrance__skip {
+  position: absolute;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 100px;
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.entrance__skip:hover { text-decoration: underline; text-underline-offset: 4px; }
+.entrance__skip:focus-visible { outline: 1px dashed currentColor; outline-offset: 3px; }
+.entrance__key { opacity: 0.7; }
+
+@keyframes entrance-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entrance { transition: none; }
+  .entrance__cursor { animation: none; }
+  .entrance-active .entrance { display: none; }
+  .entrance-active .container { visibility: visible; }
+  html.entrance-active, html.entrance-active body { overflow: visible; }
+}
+
+@media print {
+  .entrance { display: none !important; }
+  .entrance-active .container { visibility: visible; }
+  html.entrance-active, html.entrance-active body { overflow: visible; }
+}
