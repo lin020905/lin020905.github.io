@@ -32,6 +32,9 @@
   {%- endif -%}
   {%- endif -%}
 
+  <link rel="stylesheet" href="{{ '/assets/pixel-trail.css' | relative_url }}">
+  <script src="{{ '/assets/pixel-trail.js' | relative_url }}" defer></script>
+
   {%- if page.url == '/' -%}
   <link rel="stylesheet" href="{{ '/assets/entrance.css' | relative_url }}">
   <script src="{{ '/assets/entrance.js' | relative_url }}" data-home="{{ '/' | relative_url }}"></script>

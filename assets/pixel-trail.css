@@ -1,0 +1,21 @@
+/* Decorative only: never replace the native cursor or intercept interactions. */
+.pixel-trail {
+  --pixel-trail-ready: 1;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 900;
+  pointer-events: none;
+  color: #ffffff;
+}
+
+.pixel-trail[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active), (hover: none), (pointer: coarse) {
+  .pixel-trail { display: none; }
+}
+
+@media print {
+  .pixel-trail { display: none; }
+}
